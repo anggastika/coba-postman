@@ -1,0 +1,814 @@
+{
+	"info": {
+		"_postman_id": "b61c638f-57cd-42c8-919e-be68ec62a084",
+		"name": "APINGWEB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7411540",
+		"_collection_link": "https://speeding-firefly-352340.postman.co/workspace/pon~42ae04b3-ac24-41de-8ce4-ba97cdb920f1/collection/7411540-b61c638f-57cd-42c8-919e-be68ec62a084?action=share&source=collection_link&creator=7411540"
+	},
+	"item": [
+		{
+			"name": "1. Register Successful",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonResp = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Registration success!!\", function () {\r",
+									"    pm.expect(jsonResp.success).to.be.true;\r",
+									"    pm.expect(jsonResp.message).to.eql(\"Registration success\")\r",
+									"    pm.expect(jsonResp.token).to.be.not.null;\r",
+									"    pm.expect(jsonResp.errors).to.be.empty;\r",
+									"    pm.expect(jsonResp.status).to.eql(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomWord = Math.random().toString(36).substring(2,9);\r",
+									"const email = \"rickytest.\" + randomWord + \"@gmail.com\";\r",
+									"pm.collectionVariables.set(\"email\", email);\r",
+									"pm.collectionVariables.set(\"password\", randomWord);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Clark Kent\",\r\n    \"email\": \"{{email}}\",\r\n    \"phone\": \"5555551234\",\r\n    \"password\": \"{{password}}\",\r\n    \"password_confirmation\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Login Successful",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonResp = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Login success!!\", function () {\r",
+									"    pm.expect(jsonResp.success).to.be.true;\r",
+									"    pm.expect(jsonResp.message).to.eql(\"Login success\")\r",
+									"    pm.expect(jsonResp.result.email).to.eq(pm.collectionVariables.get(\"email\"));\r",
+									"    pm.expect(jsonResp.token).to.be.not.null;\r",
+									"    pm.expect(jsonResp.errors).to.be.empty;\r",
+									"    pm.expect(jsonResp.status).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"// pm.environment.set(\"accessToken\", jsonResp.token);\r",
+									"pm.collectionVariables.set(\"accessToken\", jsonResp.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. Forgot Password Successful",
+			"item": [
+				{
+					"name": "Forgot Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonResp = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Password Reset Link Successfully Sent!\", function () {\r",
+									"    pm.expect(jsonResp.success).to.be.true;\r",
+									"    pm.expect(jsonResp.message).to.eql(\"We have e-mailed your password reset link, check your inbox or spam\")\r",
+									"    pm.expect(jsonResp.token).to.be.not.null;\r",
+									"    pm.expect(jsonResp.errors).to.be.empty;\r",
+									"    pm.expect(jsonResp.status).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.collectionVariables.set(\"resetPassToken\", jsonResp.or_use_this_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"title\": \"{{$randomProductName}}\",\r\n    \"link\": \"https://example.com?token={{accessToken}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/forgot-password",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. Reset Password Successful",
+			"item": [
+				{
+					"name": "Reset Password (with Token)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const newPass = Math.random().toString(36).substring(2, 9);\r",
+									"pm.collectionVariables.set(\"password\", newPass);\r",
+									"\r",
+									"console.log(newPass);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonResp = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Change Password Success!\", function () {\r",
+									"    pm.expect(jsonResp.success).to.be.true;\r",
+									"    pm.expect(jsonResp.message).to.eql(\"Your password has been changed\")\r",
+									"    pm.expect(jsonResp.errors).to.be.empty;\r",
+									"    pm.expect(jsonResp.status).to.eql(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmFlYzVlZTY2MDUwYTQzZGVkZjhjMWEzMTAwYTY5ZTFlNzUxMzAzMzAyYzJhZGNhZmE5ZDBmZGZhZTczZDk4ZDc3YzAxOTY4YWEyZTZjZmMiLCJpYXQiOjE2NzQ3MTMzNTkuOTcyOTE1LCJuYmYiOjE2NzQ3MTMzNTkuOTcyOTE5LCJleHAiOjE3MDYyNDkzNTkuOTcxMDIyLCJzdWIiOiIzMjciLCJzY29wZXMiOltdfQ.hVihBNWuEAz5LmV17AcQp9Fx5LK9HcwBM82QW7ruFXF11nAjjNgogCrPRafO6vblpTSjDlU5a1E2lsWbLDiq9AuL5BxXe59H0jDsOaCVrB_jsJKxwVqZxHsgQXZnk4LWrpEXYg-kG7cMuC31ZHTIGdAHn7eQUIyH7FW63HAbMSRCoj6m8qu6kewRpxqGfD4fCVlX7rImqxE7Vw5oe3IXGtneNneBaZ3qVRdXGNIKx-yrqMotCeKyvT7G0UjBr2cOk53kbZKJa9AYtU3gZ7QpfEjPGUkmPwHdzzHlogJBxNqKumNibkNGPnnDsYfN_jfOOe9fEcpFmoj45B9yRZ9XYVhcimsiuFwy17cmySbRvq5taFmic1e4J_zRbRwTi-_HsWb0d9-OuqsYKMxavpgaGyiuVc1HIOT_qgZ_S5Uf45NzvgOcbca5CtzbR8v3cdC9PLv_iV5zjgWfgpllXqGDwktPDzrOoyfgPf-P9WN7eYnvBOxqL6p1D8AgDPoN5L0q4v_dD-zG5HFuv0wNX7hcNceQZ6VZlQaIWEOsKtfbl9cYAEPCBZUREdZ-AKrYRoIdWWK584sbjAdViqyXfOA7A1AGsIKovPwDwq6QKTPR65O9ElgmO2lSDDT9MhlMuBEGtyZGJkzxQ176D2w0cdaqYPfVAbfvJoqv47ozHpa6UUo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"{{password}}\",\r\n    \"password_confirmation\": \"{{password}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"token\": \"{{resetPassToken}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/reset-password",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5. Get Articles Successful",
+			"item": [
+				{
+					"name": "Get All Articles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonResp = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Get All Article Success!\", function () {\r",
+									"    pm.expect(jsonResp).to.be.an('object');\r",
+									"    pm.expect(jsonResp.result).to.be.an('array');\r",
+									"    pm.expect(jsonResp.success).to.be.true;\r",
+									"    pm.expect(jsonResp.message).to.eql(\"Success\")\r",
+									"    pm.expect(jsonResp.errors).to.be.empty;\r",
+									"    pm.expect(jsonResp.status).to.eql(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/articles",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "6. Create Article Successful",
+			"item": [
+				{
+					"name": "Create Article",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonResp = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Create Article Success!\", function () {\r",
+									"    pm.expect(jsonResp.success).to.be.true;\r",
+									"    pm.expect(jsonResp.message).to.eql(\"Article has been created\");\r",
+									"    pm.expect(jsonResp.errors).to.be.empty;\r",
+									"    pm.expect(jsonResp.status).to.eql(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const title = pm.variables.replaceIn('{{$randomProductName}}');\r",
+									"pm.collectionVariables.set(\"title\", title);\r",
+									"\r",
+									"const body = pm.variables.replaceIn('{{$randomPhrase}}');\r",
+									"pm.collectionVariables.set(\"body\", body);\r",
+									"\r",
+									"// const randomWord = Math.random().toString(36).substring(2,7);\r",
+									"const formatTitle = title.replaceAll(' ', '').toLowerCase();\r",
+									"const fileName = pm.variables.replaceIn('{{$randomNoun}}').replaceAll(' ', '');\r",
+									"const pictureLink = pm.variables.replaceIn(\"https://\"+ formatTitle +\".com/\"+ fileName+ \".png\")\r",
+									"pm.collectionVariables.set(\"picture\", pictureLink);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{title}}\",\r\n    \"body\": \"{{body}}\",\r\n    \"picture\": \"{{picture}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/article/create",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"article",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Specific Article Exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonResp = pm.response.json();\r",
+									"\r",
+									"const getTitle = pm.collectionVariables.get(\"title\");\r",
+									"const getBody = pm.collectionVariables.get(\"body\");\r",
+									"const getPicture = pm.collectionVariables.get(\"picture\");\r",
+									"const filterTitle = {\r",
+									"    \"title\": getTitle,\r",
+									"    \"body\": getBody,\r",
+									"    \"picture\": getPicture\r",
+									"};\r",
+									"\r",
+									"// const test = jsonResp.result[jsonResp.result.length-1].id;\r",
+									"// console.log(test);\r",
+									"// const lastArt = jsonResp.result.at(-1).id;\r",
+									"// const reverseLastArt = jsonResp.result.reverse()[0].id;\r",
+									"// console.log(\"ini reverse = \" + reverseLastArt);\r",
+									"// console.log(lastArt);\r",
+									"\r",
+									"const checkArticle = jsonResp.result.filter((art) => {\r",
+									"  for (var key in filterTitle) {\r",
+									"    if (art[key] === undefined || art[key] != filterTitle[key])\r",
+									"      return false;\r",
+									"  }\r",
+									"  return true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Number of articles found = \" + checkArticle.length, function (){\r",
+									"    pm.expect(checkArticle.length).to.equal(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response shows the specific newly created article!\", function () {\r",
+									"    // const jj = JSON.stringify(checkArticle);\r",
+									"    // const ii = JSON.stringify(filterTitle);\r",
+									"    // pm.expect(jj[1].title).to.eql(ii);\r",
+									"    pm.expect(checkArticle[0].title).to.be.eql(getTitle);\r",
+									"    pm.expect(checkArticle[0].body).to.be.eql(getBody);\r",
+									"    pm.expect(checkArticle[0].picture).to.be.eql(getPicture);\r",
+									"});\r",
+									"\r",
+									"//set article ID --> utk hit api edit, delete, get single article\r",
+									"if(checkArticle.length == 0){\r",
+									"    console.log(\"Article not found!\");\r",
+									"}\r",
+									"else{\r",
+									"    const getArticleID = (checkArticle[0].id);\r",
+									"    console.log(getArticleID);\r",
+									"    pm.collectionVariables.set(\"articleID\", getArticleID);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/articles",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"articles"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1100",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "7. Get Single Article Successful",
+			"item": [
+				{
+					"name": "Get Single Article",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonResp = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Article Found & Response data correct\", function () {\r",
+									"    pm.expect(jsonResp.success).to.be.true;\r",
+									"    pm.expect(jsonResp.message).to.eql(\"Success\");\r",
+									"    pm.expect(jsonResp.result[0].title).to.eq(pm.collectionVariables.get(\"title\"));\r",
+									"    pm.expect(jsonResp.result[0].body).to.eq(pm.collectionVariables.get(\"body\"));\r",
+									"    pm.expect(jsonResp.result[0].picture).to.eq(pm.collectionVariables.get(\"picture\"));\r",
+									"    pm.expect(jsonResp.errors).to.be.empty;\r",
+									"    pm.expect(jsonResp.status).to.eql(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/article/:articleID",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"article",
+								":articleID"
+							],
+							"variable": [
+								{
+									"key": "articleID",
+									"value": "{{articleID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "8. Edit Article Successful",
+			"item": [
+				{
+					"name": "Edit Article",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const title = pm.variables.replaceIn('{{$randomProductName}}');\r",
+									"pm.collectionVariables.set(\"title\", title);\r",
+									"\r",
+									"const body = pm.variables.replaceIn('{{$randomPhrase}}');\r",
+									"pm.collectionVariables.set(\"body\", body);\r",
+									"\r",
+									"const formatTitle = title.replaceAll(' ', '').toLowerCase();\r",
+									"const fileName = pm.variables.replaceIn('{{$randomNoun}}').replaceAll(' ', '');\r",
+									"const pictureLink = pm.variables.replaceIn(\"https://\"+ formatTitle +\".com/\"+ fileName+ \".png\")\r",
+									"pm.collectionVariables.set(\"picture\", pictureLink);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResp = pm.response.json();\r",
+									"// const jsonReq = JSON.parse(pm.request.body.raw);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Edit Article Success!\", function () {\r",
+									"    pm.expect(jsonResp.success).to.be.true;\r",
+									"    pm.expect(jsonResp.message).to.eql(\"Article has been updated\");\r",
+									"    // pm.expect(jsonResp.result[0].title).to.eq(jsonReq.title);\r",
+									"    pm.expect(jsonResp.errors).to.be.empty;\r",
+									"    pm.expect(jsonResp.status).to.eql(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{title}}\",\r\n    \"body\": \"{{body}}\",\r\n    \"picture\": \"{{picture}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/article/edit/:articleID",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"article",
+								"edit",
+								":articleID"
+							],
+							"variable": [
+								{
+									"key": "articleID",
+									"value": "{{articleID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Article Updated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonResp = pm.response.json();\r",
+									"\r",
+									"const getTitle = pm.collectionVariables.get(\"title\");\r",
+									"const getBody = pm.collectionVariables.get(\"body\");\r",
+									"const getPicture = pm.collectionVariables.get(\"picture\");\r",
+									"const filterTitle = {\r",
+									"    \"title\": getTitle,\r",
+									"    \"body\": getBody,\r",
+									"    \"picture\": getPicture\r",
+									"};\r",
+									"\r",
+									"const checkArticle = jsonResp.result.filter((art) => {\r",
+									"  for (var key in filterTitle) {\r",
+									"    if (art[key] === undefined || art[key] != filterTitle[key])\r",
+									"      return false;\r",
+									"  }\r",
+									"  return true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Number of articles found = \" + checkArticle.length, function (){\r",
+									"    pm.expect(checkArticle.length).to.equal(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response shows the specific newly created article!\", function () {\r",
+									"    // const jj = JSON.stringify(checkArticle);\r",
+									"    // const ii = JSON.stringify(filterTitle);\r",
+									"    // pm.expect(jj[1].title).to.eql(ii);\r",
+									"    pm.expect(checkArticle[0].title).to.be.eql(getTitle);\r",
+									"    pm.expect(checkArticle[0].body).to.be.eql(getBody);\r",
+									"    pm.expect(checkArticle[0].picture).to.be.eql(getPicture);\r",
+									"});\r",
+									"\r",
+									"console.log(checkArticle);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/articles",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"articles"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1100",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "9. Delete Article Successful",
+			"item": [
+				{
+					"name": "Delete Article",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonResp = pm.response.json();\r",
+									"const artID = pm.collectionVariables.get(\"articleID\");\r",
+									"\r",
+									"pm.test(\"Article with ID \"+ artID +\" successfully deleted!\", function () {\r",
+									"    pm.expect(jsonResp.success).to.be.true;\r",
+									"    pm.expect(jsonResp.message).to.eql(\"Article has been deleted\");\r",
+									"    pm.expect(jsonResp.errors).to.be.empty;\r",
+									"    pm.expect(jsonResp.status).to.eql(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/article/delete/:articleID",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"article",
+								"delete",
+								":articleID"
+							],
+							"variable": [
+								{
+									"key": "articleID",
+									"value": "{{articleID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://apingweb.com/api",
+			"type": "string"
+		},
+		{
+			"key": "email",
+			"value": ""
+		},
+		{
+			"key": "accessToken",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "resetPassToken",
+			"value": ""
+		},
+		{
+			"key": "title",
+			"value": ""
+		},
+		{
+			"key": "body",
+			"value": ""
+		},
+		{
+			"key": "picture",
+			"value": ""
+		},
+		{
+			"key": "articleID",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
