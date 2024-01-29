@@ -1,0 +1,3257 @@
+{
+	"info": {
+		"_postman_id": "d45e8ea9-8eea-4573-964d-d201113b1dbd",
+		"name": "API Test Horego",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7411540",
+		"_collection_link": "https://speeding-firefly-352340.postman.co/workspace/pon~42ae04b3-ac24-41de-8ce4-ba97cdb920f1/collection/7411540-d45e8ea9-8eea-4573-964d-d201113b1dbd?action=share&source=collection_link&creator=7411540"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Create MDN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"",
+									"pm.globals.set(\"TokenUser\", pm.response.headers.get(\"Token\"));",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.globals.set(\"pubId\", jsonData.content.pubId);",
+									"",
+									"console.log(pm.response.json())",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99"
+							},
+							{
+								"key": "appVersion",
+								"value": "9.99.99"
+							},
+							{
+								"key": "platform",
+								"value": "android"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"mdn\": \"6281956565656\"\n}"
+						},
+						"url": {
+							"raw": "{{urlMag}}:20100/2.0/magusers/otp/generate",
+							"host": [
+								"{{urlMag}}"
+							],
+							"port": "20100",
+							"path": [
+								"2.0",
+								"magusers",
+								"otp",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify OTP MDN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"",
+									"pm.globals.set(\"TokenUser\", pm.response.headers.get(\"Token\"));",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99"
+							},
+							{
+								"key": "platform",
+								"value": "ios"
+							},
+							{
+								"key": "deviceIdV2",
+								"value": "49AD3506-3CF9-4EDF-85AF-A0B88C7B919A"
+							},
+							{
+								"key": "latlong",
+								"value": "-6.189882220015052#106.82405218963082"
+							},
+							{
+								"key": "shieldId",
+								"value": "55ff1bd1f55ef24175c844d5dab23a20"
+							},
+							{
+								"key": "deviceId",
+								"value": "49AD3506-3CF9-4EDF-85AF-A0B88C7B919A"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "appVersion",
+								"value": "9.99.99"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mdn\": \"6281956565656\",\n    \"tokenOtp\": \"000000\"\n}"
+						},
+						"url": {
+							"raw": "{{urlMag}}:20100/2.0/magusers/otp/verify",
+							"host": [
+								"{{urlMag}}"
+							],
+							"port": "20100",
+							"path": [
+								"2.0",
+								"magusers",
+								"otp",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Placelist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99"
+							},
+							{
+								"key": "platform",
+								"value": "ios"
+							},
+							{
+								"key": "deviceIdV2",
+								"value": "49AD3506-3CF9-4EDF-85AF-A0B88C7B919A"
+							},
+							{
+								"key": "latlong",
+								"value": "-6.189882220015052#106.82405218963082"
+							},
+							{
+								"key": "shieldId",
+								"value": "55ff1bd1f55ef24175c844d5dab23a20"
+							},
+							{
+								"key": "deviceId",
+								"value": "49AD3506-3CF9-4EDF-85AF-A0B88C7B919A"
+							},
+							{
+								"key": "appVersion",
+								"value": "9.99.99"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}"
+							},
+							{
+								"key": "Cookie",
+								"value": "beegosessionID=e8f37f8be1f79dd11f5f413baaa4c988"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"placelistName\": \"Tempat Jakarta Timur\",\n    \"description\": \"kumpulan tempat terenak di jkt timur enak bosss\",\n    \"places\": [\n        {\n            \"merchantPubId\": \"931b5be8-6e21-4b99-8176-bf1f31c80cba\",\n            \"outletPubId\": \"d72e0ea8-cd30-4052-a79d-34920700cc9a\",\n            \"outletName\": \"SOLARIA TERASKOTA MALL\",\n            \"idxOrder\": 1\n        },\n        {\n            \"merchantPubId\": \"5ee811c2-345e-4c46-8139-d89b5ac63c4e\",\n            \"outletPubId\": \"28058719-a38b-447a-ad26-e5250714ae84\",\n            \"outletName\": \"CHATIME CENTRAL PARK 2-F515\",\n            \"idxOrder\": 2\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{urlMag}}:20100/2.0/magplacelist",
+							"host": [
+								"{{urlMag}}"
+							],
+							"port": "20100",
+							"path": [
+								"2.0",
+								"magplacelist"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Share Link - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "MAG - Share Link Outlet Details - Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ensure Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Ensure key outletShareUrl is not null\", function () {\r",
+									"    var responseData = pm.response.json();\r",
+									"    pm.expect(responseData.content.outlet.outletShareUrl).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"// Stores the outletShareUrl in a global variable\r",
+									"var outletShareUrl = pm.response.json().content.outlet.outletShareUrl;\r",
+									"pm.globals.set(\"Outlet Share Url Anonymous\", outletShareUrl);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}"
+							},
+							{
+								"key": "platform",
+								"value": "iOS"
+							},
+							{
+								"key": "deviceIdV2",
+								"value": "ABCD12345"
+							},
+							{
+								"key": "latlong",
+								"value": "-2.0670095#101.3909698"
+							},
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						},
+						"description": "\nThis HTTP GET request is used to retrieve information about a specific outlet by its ID. The request should include the query parameter \"pubId\" with the value of the outlet's ID. The response will contain detailed information about the outlet and its associated merchant.\n\nThe response will have a status code of 200 if the request is successful. The response body will include information about the outlet such as its name, address, location coordinates, opening hours, contact details, and other relevant attributes. Additionally, details about the associated merchant including trade name, cashback details, campaign information, and more will also be provided.\n\nPlease note that the response may include additional fields based on the specific outlet and merchant details.\n\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Share Link - Place Details - Login",
+			"item": [
+				{
+					"name": "MAG - Share Link Outlet Details - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ensure Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Ensure key outletShareUrl is not null\", function () {\r",
+									"    var responseData = pm.response.json();\r",
+									"    pm.expect(responseData.content.outlet.outletShareUrl).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"// Stores the outletShareUrl in a global variable\r",
+									"var outletShareUrl = pm.response.json().content.outlet.outletShareUrl;\r",
+									"pm.globals.set(\"Outlet Share Url Anonymous\", outletShareUrl);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99"
+							},
+							{
+								"key": "appVersion",
+								"value": "9.99.99"
+							},
+							{
+								"key": "platform",
+								"value": "iOS"
+							},
+							{
+								"key": "deviceIdV2",
+								"value": "ABCD12345"
+							},
+							{
+								"key": "latlong",
+								"value": "-2.0546386,101.3998629"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						},
+						"description": "\nThis HTTP GET request is used to retrieve information about a specific outlet by its ID. The request should include the query parameter \"pubId\" with the value of the outlet's ID. The response will contain detailed information about the outlet and its associated merchant.\n\nThe response will have a status code of 200 if the request is successful. The response body will include information about the outlet such as its name, address, location coordinates, opening hours, contact details, and other relevant attributes. Additionally, details about the associated merchant including trade name, cashback details, campaign information, and more will also be provided.\n\nPlease note that the response may include additional fields based on the specific outlet and merchant details.\n\n"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"//Data User",
+							"pm.environment.set(\"userMdn\", \"6282178731128\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Image Banner - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "MAG - Image Banner Place Details - Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ensure Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Ensure key outletShareUrl is not null\", function () {\r",
+									"    pm.expect(pm.response.json().content.outlet.outletShareUrl).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Ensure Data Banner is correct\", function () {\r",
+									"    var images = pm.response.json().content.outlet.images;\r",
+									"    var totalTags = 0;\r",
+									"    images.forEach(function(image) {\r",
+									"        totalTags += image.tags.length;\r",
+									"    });\r",
+									"    pm.globals.set(\"Total Image Banner\", totalTags);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Ensure isEligibleReview should be false\", function () {\r",
+									"    pm.expect(pm.response.json().content.outlet.isEligibleReview).to.be.false;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}"
+							},
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}"
+							},
+							{
+								"key": "platform",
+								"value": "iOS"
+							},
+							{
+								"key": "deviceIdV2",
+								"value": "ABCD12345"
+							},
+							{
+								"key": "latlong",
+								"value": "-2.0546386,101.3998629"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						},
+						"description": "\nThis HTTP GET request is used to retrieve information about a specific outlet by its ID. The request should include the query parameter \"pubId\" with the value of the outlet's ID. The response will contain detailed information about the outlet and its associated merchant.\n\nThe response will have a status code of 200 if the request is successful. The response body will include information about the outlet such as its name, address, location coordinates, opening hours, contact details, and other relevant attributes. Additionally, details about the associated merchant including trade name, cashback details, campaign information, and more will also be provided.\n\nPlease note that the response may include additional fields based on the specific outlet and merchant details.\n\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Image Banner - Place Details - Login",
+			"item": [
+				{
+					"name": "MAG - Image Banner Place Details - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ensure Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Ensure key outletShareUrl is not null\", function () {\r",
+									"    var responseData = pm.response.json();\r",
+									"    pm.expect(responseData.content.outlet.outletShareUrl).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Ensure Data Banner is correct\", function () {\r",
+									"    var images = pm.response.json().content.outlet.images;\r",
+									"    var totalTags = 0;\r",
+									"    images.forEach(function(image) {\r",
+									"        totalTags += image.tags.length;\r",
+									"    });\r",
+									"    pm.globals.set(\"Total Image Banner\", totalTags);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Ensure isEligibleReview should be true\", function () {\r",
+									"    pm.expect(pm.response.json().content.outlet.isEligibleReview).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99"
+							},
+							{
+								"key": "appVersion",
+								"value": "4.06"
+							},
+							{
+								"key": "platform",
+								"value": "iOS"
+							},
+							{
+								"key": "deviceIdV2",
+								"value": "ABCD12345"
+							},
+							{
+								"key": "latlong",
+								"value": "-2.0546386,101.3998629"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						},
+						"description": "\nThis HTTP GET request is used to retrieve information about a specific outlet by its ID. The request should include the query parameter \"pubId\" with the value of the outlet's ID. The response will contain detailed information about the outlet and its associated merchant.\n\nThe response will have a status code of 200 if the request is successful. The response body will include information about the outlet such as its name, address, location coordinates, opening hours, contact details, and other relevant attributes. Additionally, details about the associated merchant including trade name, cashback details, campaign information, and more will also be provided.\n\nPlease note that the response may include additional fields based on the specific outlet and merchant details.\n\n"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"//Data User",
+							"pm.environment.set(\"userMdn\", \"6282178731128\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "View Placelist - With Places",
+			"item": [
+				{
+					"name": "View Placelist With Places Anonymous User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Placelist Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.placelistPubId).to.not.eql(null);",
+									"    });",
+									"",
+									"pm.test(\"Placelist Name Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.placelistName).to.not.eql(null);",
+									"    });",
+									"",
+									"pm.test(\"Placelist Description Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.description).to.not.eql(null);",
+									"    });",
+									"",
+									"pm.test(\"Placelist Places Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.places).to.not.eql(null);",
+									"        pm.expect(jsonData.thumbnails).to.not.eql(null);",
+									"        pm.expect(jsonData.distance).to.not.eql(null);",
+									"        pm.expect(jsonData.address).to.not.eql(null);",
+									"        pm.expect(jsonData.isOpenNow).to.not.eql(null);",
+									"        pm.expect(jsonData.openInfo).to.not.eql(null);",
+									"        pm.expect(jsonData.rating).to.not.eql(null);",
+									"",
+									"        ",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "ios",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}:20100/2.0/magplacelist/{{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"port": "20100",
+							"path": [
+								"2.0",
+								"magplacelist",
+								"{{outletPubId1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Placelist With Places Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Placelist Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.placelistPubId).to.not.eql(null);",
+									"    });",
+									"",
+									"pm.test(\"Placelist Name Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.placelistName).to.not.eql(null);",
+									"    });",
+									"",
+									"pm.test(\"Placelist Description Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.description).to.not.eql(null);",
+									"    });",
+									"",
+									"pm.test(\"Placelist Places Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.places).to.not.eql(null);",
+									"        pm.expect(jsonData.thumbnails).to.not.eql(null);",
+									"        pm.expect(jsonData.distance).to.not.eql(null);",
+									"        pm.expect(jsonData.address).to.not.eql(null);",
+									"        pm.expect(jsonData.isOpenNow).to.not.eql(null);",
+									"        pm.expect(jsonData.openInfo).to.not.eql(null);",
+									"        pm.expect(jsonData.rating).to.not.eql(null);",
+									"",
+									"        ",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "ios",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}:20100/2.0/magplacelist/{{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"port": "20100",
+							"path": [
+								"2.0",
+								"magplacelist",
+								"{{outletPubId1}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "View Placelist - Without Places",
+			"item": [
+				{
+					"name": "View Placelist Without Places - Anonymous User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Placelist Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.placelistPubId).to.not.eql(null);",
+									"    });",
+									"",
+									"pm.test(\"Placelist Name Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.placelistName).to.not.eql(null);",
+									"    });",
+									"",
+									"pm.test(\"Placelist Description Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.description).to.not.eql(null);",
+									"    });",
+									"",
+									"pm.test(\"Placelist Places Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.places).to.not.eql(null);",
+									"        pm.expect(jsonData.thumbnails).to.not.eql(null);",
+									"        pm.expect(jsonData.distance).to.not.eql(null);",
+									"        pm.expect(jsonData.address).to.not.eql(null);",
+									"        pm.expect(jsonData.isOpenNow).to.not.eql(null);",
+									"        pm.expect(jsonData.openInfo).to.not.eql(null);",
+									"        pm.expect(jsonData.rating).to.not.eql(null);",
+									"",
+									"        ",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "ios",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}:20100/2.0/magplacelist/{{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"port": "20100",
+							"path": [
+								"2.0",
+								"magplacelist",
+								"{{outletPubId1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Placelist Without Places - Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Placelist Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.placelistPubId).to.not.eql(null);",
+									"    });",
+									"",
+									"pm.test(\"Placelist Name Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.placelistName).to.not.eql(null);",
+									"    });",
+									"",
+									"pm.test(\"Placelist Description Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.description).to.not.eql(null);",
+									"    });",
+									"",
+									"pm.test(\"Placelist Places Validation\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.places).to.not.eql(null);",
+									"        pm.expect(jsonData.thumbnails).to.not.eql(null);",
+									"        pm.expect(jsonData.distance).to.not.eql(null);",
+									"        pm.expect(jsonData.address).to.not.eql(null);",
+									"        pm.expect(jsonData.isOpenNow).to.not.eql(null);",
+									"        pm.expect(jsonData.openInfo).to.not.eql(null);",
+									"        pm.expect(jsonData.rating).to.not.eql(null);",
+									"",
+									"        ",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "ios",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}:20100/2.0/magplacelist/{{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"port": "20100",
+							"path": [
+								"2.0",
+								"magplacelist",
+								"{{outletPubId1}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Place Name - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "View Place Details - Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Name Outlet\",function () {",
+									"    var jsonData = pm.response.json();",
+									"  pm.expect(jsonData.name).not.eql(null);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"var name = jsonData.content.outlet.name",
+									"pm.test(name, function () {",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Place Name - Place Details - Login",
+			"item": [
+				{
+					"name": "View Place Details - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Name Outlet\",function () {",
+									"    var jsonData = pm.response.json();",
+									"  pm.expect(jsonData.name).not.eql(null);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"var name = jsonData.content.outlet.name",
+									"pm.test(name, function () {",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Claimed Place - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "Claimed Place - Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Verify Claimed Places\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.content.merchant.isCashbacMerchant).to.be.eql(true);",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Claimed Place - Place Details - Login",
+			"item": [
+				{
+					"name": "Claimed Place - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Verify Claimed Places\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.content.merchant.isCashbacMerchant).to.be.eql(true);",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Unclaimed Place - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "Unclaimed Place - Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Verify Claimed Places\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.content.merchant.isCashbacMerchant).to.be.eql(false);",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Unclaimed Place - Place Details - Login",
+			"item": [
+				{
+					"name": "Unclaimed Place - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Verify Claimed Places\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.content.merchant.isCashbacMerchant).to.be.eql(false);",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Open Now Status Info - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "Open Now Place Status - Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Verify Open Now Info\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.content.outlet.isOpenNow).to.be.eql(true);",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Open Now Status Info - Place Details - Login",
+			"item": [
+				{
+					"name": "Open Now Place Status - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Verify Open Now Info\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.content.outlet.isOpenNow).to.be.eql(true);",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Outlet Address - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "Outlet Address - Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Validate Outlet Address\",function () {",
+									"    var jsonData = pm.response.json();",
+									"  pm.expect(jsonData.address).not.eql(null);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"var address = jsonData.content.outlet.address",
+									"pm.test(address, function () {",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Outlet Address - Place Details - Login",
+			"item": [
+				{
+					"name": "Outlet Address - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Validate Outlet Address\",function () {",
+									"    var jsonData = pm.response.json();",
+									"  pm.expect(jsonData.address).not.eql(null);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"var address = jsonData.content.outlet.address",
+									"pm.test(address, function () {",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Store Rating - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "Store Rating - Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Validate Store Rating\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.content.outlet.rating).not.eql(null);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"var rating = jsonData.content.outlet.rating",
+									"pm.test(rating, function () {",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Store Rating - Place Details - Login",
+			"item": [
+				{
+					"name": "Store Rating - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Validate Store Rating\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.content.outlet.rating).not.eql(null);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"var rating = jsonData.content.outlet.rating",
+									"pm.test(rating, function () {",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Outlet Phone Number - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "Outlet Phone Number - Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Validate Outlet Phone Number\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.content.outlet.phone).not.eql(null);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"var phone = jsonData.content.outlet.phone",
+									"pm.test(phone, function () {",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Open Now Place Status - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Verify Open Now Info\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.content.outlet.isOpenNow).to.be.eql(true);",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Outlet Phone Number - Place Details - Login",
+			"item": [
+				{
+					"name": "Outlet Phone Number - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"pm.test(\"Validate Outlet Phone Number\", function () {",
+									"    var jsonData = pm.response.json();",
+									" pm.expect(jsonData.content.outlet.phone).not.eql(null);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"var phone = jsonData.content.outlet.phone",
+									"pm.test(phone, function () {",
+									"});",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "No Cuisine Info - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "No Cuisine Info - Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"",
+									"// var features = pm.response.json().content.outlet.features;",
+									"// var cuisineCategories = [];",
+									"// features.forEach(function(feature) {",
+									"//     if (feature.category === \"cuisine\") {",
+									"//         feature.value.forEach(function(cuisine) {",
+									"//             cuisineCategories.push(cuisine);",
+									"//         });",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"Validate No Cuisine Info\", function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(cuisineCategories).not.equal(null);",
+									"//     pm.expect(cuisineCategories).to.be.empty;",
+									"//     pm.expect(cuisineCategories).not.equal(0);",
+									"//     pm.expect(cuisineCategories).to.exist;",
+									"// });",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "No Cuisine Info - Place Details - Login",
+			"item": [
+				{
+					"name": "No Cuisine Info - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Success Response\",function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(200);",
+									"});",
+									"",
+									"// var features = pm.response.json().content.outlet.features;",
+									"// var cuisineCategories = [];",
+									"// features.forEach(function(feature) {",
+									"//     if (feature.category === \"cuisine\") {",
+									"//         feature.value.forEach(function(cuisine) {",
+									"//             cuisineCategories.push(cuisine);",
+									"//         });",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"Validate No Cuisine Info\", function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(cuisineCategories).not.equal(null);",
+									"//     pm.expect(cuisineCategories).to.be.empty;",
+									"//     pm.expect(cuisineCategories).not.equal(0);",
+									"//     pm.expect(cuisineCategories).to.exist;",
+									"// });",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service Type - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "Service Type- Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// pm.test(\"Validate Success Response\",function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(jsonData.code).to.eql(200);",
+									"// });",
+									"",
+									"// var features = pm.response.json().content.outlet.features;",
+									"// var serviceTypeCategories = [];",
+									"// features.forEach(function(feature) {",
+									"//     if (feature.category === \"serviceType\") {",
+									"//         feature.value.forEach(function(serviceType) {",
+									"//             serviceTypeCategories.push(serviceType);",
+									"//         });",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"Validate Service Type Info\", function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(serviceTypeCategories).to.not.be.empty;",
+									"//     pm.expect(serviceTypeCategories[0]).to.not.be.empty;",
+									"// });",
+									"",
+									"// pm.globals.set(\"serviceTypeCategories\", serviceTypeCategories);",
+									"",
+									"// var jsonData = pm.response.json();",
+									"// var rating = jsonData.content.outlet.rating",
+									"// pm.test(serviceTypeCategories, function () {",
+									"// });",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service Type - Place Details - Login Copy",
+			"item": [
+				{
+					"name": "Service Type - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// pm.test(\"Validate Success Response\",function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(jsonData.code).to.eql(200);",
+									"// });",
+									"",
+									"// var features = pm.response.json().content.outlet.features;",
+									"// var serviceTypeCategories = [];",
+									"// features.forEach(function(feature) {",
+									"//     if (feature.category === \"serviceType\") {",
+									"//         feature.value.forEach(function(serviceType) {",
+									"//             serviceTypeCategories.push(serviceType);",
+									"//         });",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"Validate Service Type Info\", function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(serviceTypeCategories).to.not.be.empty;",
+									"//     pm.expect(serviceTypeCategories[0]).to.not.be.empty;",
+									"// });",
+									"",
+									"// pm.globals.set(\"serviceTypeCategories\", serviceTypeCategories);",
+									"",
+									"// var jsonData = pm.response.json();",
+									"// var rating = jsonData.content.outlet.rating",
+									"// pm.test(serviceTypeCategories, function () {",
+									"// });",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "No Service Type - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "No Service Type- Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// pm.test(\"Validate Success Response\",function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(jsonData.code).to.eql(200);",
+									"// });",
+									"",
+									"// var features = pm.response.json().content.outlet.features;",
+									"// var serviceTypeCategories = [];",
+									"// features.forEach(function(feature) {",
+									"//     if (feature.category === \"serviceType\") {",
+									"//         feature.value.forEach(function(serviceType) {",
+									"//             serviceTypeCategories.push(serviceType);",
+									"//         });",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"Validate No Service Type Info\", function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(serviceTypeCategories).not.equal(null);",
+									"//     pm.expect(serviceTypeCategories).to.be.empty;",
+									"//     pm.expect(serviceTypeCategories).not.equal(0);",
+									"//     pm.expect(serviceTypeCategories).to.exist;",
+									"// });",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "No Service Type - Place Details - Login",
+			"item": [
+				{
+					"name": "No Service Type - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// pm.test(\"Validate Success Response\",function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(jsonData.code).to.eql(200);",
+									"// });",
+									"",
+									"// var features = pm.response.json().content.outlet.features;",
+									"// var serviceTypeCategories = [];",
+									"// features.forEach(function(feature) {",
+									"//     if (feature.category === \"serviceType\") {",
+									"//         feature.value.forEach(function(serviceType) {",
+									"//             serviceTypeCategories.push(serviceType);",
+									"//         });",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"Validate No Service Type Info\", function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(serviceTypeCategories).not.equal(null);",
+									"//     pm.expect(serviceTypeCategories).to.be.empty;",
+									"//     pm.expect(serviceTypeCategories).not.equal(0);",
+									"//     pm.expect(serviceTypeCategories).to.exist;",
+									"// });",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment Type - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "Payment Type- Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// pm.test(\"Validate Success Response\",function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(jsonData.code).to.eql(200);",
+									"// });",
+									"",
+									"// var features = pm.response.json().content.outlet.features;",
+									"// var paymentTypeCategories = [];",
+									"// features.forEach(function(feature) {",
+									"//     if (feature.category === \"paymentMethods\") {",
+									"//         feature.value.forEach(function(paymentMethods) {",
+									"//             paymentTypeCategories.push(paymentMethods);",
+									"//         });",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"Validate Payment Method Info\", function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(paymentTypeCategories).to.not.be.empty;",
+									"//     pm.expect(paymentTypeCategories[0]).to.not.be.empty;",
+									"// });",
+									"",
+									"// pm.globals.set(\"serviceTypeCategories\", paymentTypeCategories);",
+									"",
+									"// pm.test(paymentTypeCategories, function () {",
+									"// });",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment Type - Place Details - Login",
+			"item": [
+				{
+					"name": "Payment Type - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// pm.test(\"Validate Success Response\",function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(jsonData.code).to.eql(200);",
+									"// });",
+									"",
+									"// var features = pm.response.json().content.outlet.features;",
+									"// var paymentTypeCategories = [];",
+									"// features.forEach(function(feature) {",
+									"//     if (feature.category === \"paymentMethods\") {",
+									"//         feature.value.forEach(function(paymentMethods) {",
+									"//             paymentTypeCategories.push(paymentMethods);",
+									"//         });",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"Validate Payment Method Info\", function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(paymentTypeCategories).to.not.be.empty;",
+									"//     pm.expect(paymentTypeCategories[0]).to.not.be.empty;",
+									"// });",
+									"",
+									"// pm.globals.set(\"serviceTypeCategories\", paymentTypeCategories);",
+									"",
+									"// pm.test(paymentTypeCategories, function () {",
+									"// });",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "No Payment Type - Place Details - Anonymous",
+			"item": [
+				{
+					"name": "No Payment Type- Anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// pm.test(\"Validate Success Response\",function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(jsonData.code).to.eql(200);",
+									"// });",
+									"",
+									"// var features = pm.response.json().content.outlet.features;",
+									"// var paymentTypeCategories = [];",
+									"// features.forEach(function(feature) {",
+									"//     if (feature.category === \"paymentMethods\") {",
+									"//         feature.value.forEach(function(paymentMethods) {",
+									"//             paymentTypeCategories.push(paymentMethods);",
+									"//         });",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"Validate No Payment Method Info\", function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(paymentTypeCategories).not.equal(null);",
+									"//     pm.expect(paymentTypeCategories).to.be.empty;",
+									"//     pm.expect(paymentTypeCategories).not.equal(0);",
+									"//     pm.expect(paymentTypeCategories).to.exist;",
+									"// });",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "No Payment Type - Place Details - Login",
+			"item": [
+				{
+					"name": "No Payment Type - Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// pm.test(\"Validate Success Response\",function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(jsonData.code).to.eql(200);",
+									"// });",
+									"",
+									"// var features = pm.response.json().content.outlet.features;",
+									"// var paymentTypeCategories = [];",
+									"// features.forEach(function(feature) {",
+									"//     if (feature.category === \"paymentMethods\") {",
+									"//         feature.value.forEach(function(paymentMethods) {",
+									"//             paymentTypeCategories.push(paymentMethods);",
+									"//         });",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"Validate No Payment Method Info\", function () {",
+									"//     var jsonData = pm.response.json();",
+									"//     pm.expect(paymentTypeCategories).not.equal(null);",
+									"//     pm.expect(paymentTypeCategories).to.be.empty;",
+									"//     pm.expect(paymentTypeCategories).not.equal(0);",
+									"//     pm.expect(paymentTypeCategories).to.exist;",
+									"// });",
+									"",
+									"console.log(pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "appVersion",
+								"value": "{{appVersion}}",
+								"type": "text"
+							},
+							{
+								"key": "platform",
+								"value": "{{platform}}",
+								"type": "text"
+							},
+							{
+								"key": "deviceInfo",
+								"value": "{{deviceInfo}}",
+								"type": "text"
+							},
+							{
+								"key": "latlong",
+								"value": "{{latLong}}",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}/1.3/magmerchants/outlets/find/id?pubId={{outletPubId1}}",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"1.3",
+								"magmerchants",
+								"outlets",
+								"find",
+								"id"
+							],
+							"query": [
+								{
+									"key": "pubId",
+									"value": "{{outletPubId1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Logout",
+			"item": [
+				{
+					"name": "Logout Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.globals.get(\"TokenUser\");",
+									"",
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "deviceInfo",
+								"value": "iPhone 6#11.0.2#Version 1.0 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99"
+							},
+							{
+								"key": "appVersion",
+								"value": "1.96.0"
+							},
+							{
+								"key": "platform",
+								"value": "android"
+							},
+							{
+								"key": "token",
+								"value": "{{TokenUser}}"
+							}
+						],
+						"url": {
+							"raw": "{{urlMag}}//1.0/magusers/logout",
+							"host": [
+								"{{urlMag}}"
+							],
+							"path": [
+								"",
+								"1.0",
+								"magusers",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "urlMag",
+			"value": "https://rc-cb-mobile-api-gateway.cashbac.com ",
+			"type": "string"
+		},
+		{
+			"key": "appVersion",
+			"value": "9.99.99"
+		},
+		{
+			"key": "deviceInfo",
+			"value": "iPhone 6#11.0.2#Version 1.00.00 (2)#0F72FBAC-DC61-4B56-92E0-4A059D0A6B0A#13.229.1.1#99",
+			"type": "string"
+		},
+		{
+			"key": "platform",
+			"value": "android"
+		},
+		{
+			"key": "latLong",
+			"value": "-2.0633829#101.3937993"
+		},
+		{
+			"key": "outletPubId1",
+			"value": "3af7f00d-ebbf-427c-a078-6d503f6021ec",
+			"type": "string"
+		}
+	]
+}
